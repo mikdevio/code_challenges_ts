@@ -1,0 +1,3 @@
+### CODEWARS KATAS REPOSITORY - JAVASCRIPT/TYPESCRIPT
+
+All codewars katas I've done.
