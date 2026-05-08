@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    /* --- Layout & Output --- */
+    "rootDir": "./",                 // Define la raíz del proyecto para evitar error TS5011
+    "outDir": "./dist",
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "noEmit": false,                 // Permite generar archivos si decides compilar
+
+    /* --- Environment Settings --- */
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",   // Ideal para Vitest y herramientas modernas
+    "lib": ["ESNext", "DOM"],        // "DOM" es útil si alguna kata implica manipulación básica de strings/web
+    "allowJs": true,
+    "checkJs": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,         // Requerido por motores rápidos como esbuild/swc (Vitest)
+    "verbatimModuleSyntax": true,    // Asegura que los imports/exports sean limpios
+    "moduleDetection": "force",
+
+    /* --- Types --- */
+    "types": ["vitest/globals", "node", "chai"], 
+    "skipLibCheck": true,            // Evita errores en librerías de terceros
+
+    /* --- Strictness --- */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitAny": true,
+
+    /* --- Compatibilidad --- */
+    "jsx": "react-jsx",              // Por si alguna kata requiere lógica de componentes
+    "ignoreDeprecations": "5.0"
+  },
+  "include": [
+    "ts_katas/**/*", 
+    "js_katas/**/*", 
+    "vitest.config.ts"               // Incluimos la config para que TS no la marque como huérfana
+  ],
+  "exclude": ["node_modules", "dist"]
+}

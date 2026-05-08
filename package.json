@@ -1,0 +1,32 @@
+{
+  "name": "codewars_katas",
+  "version": "1.0.0",
+  "description": "All codewars katas I've done.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikdevio/codewars_typescript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikdevio/codewars_typescript/issues"
+  },
+  "homepage": "https://github.com/mikdevio/codewars_typescript#readme",
+  "devDependencies": {
+    "@types/chai": "^5.2.3",
+    "@types/node": "^25.6.2",
+    "@vitest/ui": "^4.1.5",
+    "chai": "^6.2.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5"
+  }
+}
