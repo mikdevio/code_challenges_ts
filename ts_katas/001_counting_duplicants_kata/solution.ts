@@ -8,7 +8,7 @@ input string. The input string can be assumed to contain only alphabets
 (both uppercase and lowercase) and numeric digits.
 */
 
-function duplicateCount(text: string): number {
+export const duplicateCount = (text: string): number => {
   let rep: number = 0;
   let c_eval: string = "";
 
