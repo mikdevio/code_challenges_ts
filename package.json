@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mikdevio/codewars_typescript.git"
+    "url": "git+https://github.com/mikdevio/code_challenges_ts.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mikdevio/codewars_typescript/issues"
+    "url": "https://github.com/mikdevio/code_challenges_ts/issues"
   },
-  "homepage": "https://github.com/mikdevio/codewars_typescript#readme",
+  "homepage": "https://github.com/mikdevio/code_challenges_ts#readme",
   "devDependencies": {
     "@types/chai": "^5.2.3",
     "@types/node": "^25.6.2",

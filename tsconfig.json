@@ -36,8 +36,9 @@
     "ignoreDeprecations": "5.0"
   },
   "include": [
-    "ts_katas/**/*", 
-    "js_katas/**/*", 
+    "codewars_katas/**/*", 
+    "codeforme_problems/**/*",
+    "leetcode_challenges/**/*",
     "vitest.config.ts"               // Incluimos la config para que TS no la marque como huérfana
   ],
   "exclude": ["node_modules", "dist"]

@@ -4,8 +4,12 @@ export default defineConfig({
   test: {
     // 1. Especificamos dónde buscar los archivos de test
     include: [
-      'ts_katas/**/*.test.ts', 
-      'js_katas/**/*.test.js'
+      'codewars_katas/**/*.test.ts',
+      'codeforce_problems/**/*.test.ts',
+      'leetcode_challenges/**/*.test.ts',
+      'codewars_katas/**/*.test.js',
+      'codeforce_problems/**/*.test.js',
+      'leetcode_chanllenges/**/*.test.js',
     ],
     
     // 2. Entorno de ejecución (Node es ideal para Katas de lógica)
