@@ -38,7 +38,7 @@
   "include": [
     "codewars_katas/**/*", 
     "codeforme_problems/**/*",
-    "leetcode_challenges/**/*",
+    "leetcode_problems/**/*",
     "vitest.config.ts"               // Incluimos la config para que TS no la marque como huérfana
   ],
   "exclude": ["node_modules", "dist"]

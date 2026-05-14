@@ -6,10 +6,10 @@ export default defineConfig({
     include: [
       'codewars_katas/**/*.test.ts',
       'codeforce_problems/**/*.test.ts',
-      'leetcode_challenges/**/*.test.ts',
+      'leetcode_problems/**/*.test.ts',
       'codewars_katas/**/*.test.js',
       'codeforce_problems/**/*.test.js',
-      'leetcode_chanllenges/**/*.test.js',
+      'leetcode_problems/**/*.test.js',
     ],
     
     // 2. Entorno de ejecución (Node es ideal para Katas de lógica)
