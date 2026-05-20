@@ -41,17 +41,24 @@ export class PaginationHelper {
 
   public pageCount(): number {
     // Returns the number of pages
-    this.pageNumber = Math.trunc(this.itemCount()/this.itemsPerPage);
+    this.pageNumber = Math.ceil(this.itemCount()/this.itemsPerPage);
     return this.pageNumber;
   }
 
   public pageItemCount(pageIndex: number): number {
     // Returns the number of items on the current page. page_index is zero based.
     // this method should return -1 for pageIndex values that are out of range
+
+    // Empty arrays case
+    if(this.collection.length == 0){
+      return -1;
+    }
+
+    // Non empty array case
     const idxCriterion: number = this.collection.length - this.itemsPerPage*(pageIndex+1);
     if(idxCriterion >= 0) {
       return this.itemsPerPage;
-    } else if(idxCriterion < 0){
+    } else if((idxCriterion < 0) && (idxCriterion > -this.itemsPerPage)){
       return this.itemsPerPage + idxCriterion;
     } else {
       return -1;
@@ -61,8 +68,22 @@ export class PaginationHelper {
   public pageIndex(itemIndex: number): number {
     // Determines what page an item is on. Zero based indexes
     // this method should return -1 for itemIndex values that are out of range
+    
+    // Item index negative
+    if(itemIndex < 0) {
+      return -1;
+    }
+
+    // Empty arrays case
+    if(this.collection.length == 0) {
+      return -1;
+    } else if ((this.collection.length != 0) && (itemIndex == 0)) {
+      return 0;
+    }
+
+    // Non empty array case
     if(itemIndex <= this.collection.length){
-      return Math.ceil(itemIndex/this.itemsPerPage);
+      return Math.ceil(itemIndex/this.itemsPerPage)-1;
     } else {
       return -1;
     }
