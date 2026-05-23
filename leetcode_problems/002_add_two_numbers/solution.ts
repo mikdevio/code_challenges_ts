@@ -127,6 +127,6 @@ export class LinkedList implements Iterable<number> {
 
 }
 
-export const addTwoNumbers = (l1: LinkedList | null, l2: LinkedList | null): LinkedList | null => {
-  return l1.add(l2).toArray();
+export const addTwoNumbers = (l1: LinkedList, l2: LinkedList): number[] | null => {
+  return l1?.add(l2).toArray();
 }

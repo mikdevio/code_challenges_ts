@@ -46,14 +46,13 @@ export class TreeNode {
   public addNextNode(node: TreeNode): void {
     this.nextNodes.push(node);
   };
-
 };
 
 export class TreeNetwork {
-
+  
   public root: TreeNode | null = null;
   public nodeMap: NodeMap = {}
-
+  
   constructor(weight: number | null) {
     const value = weight !== null ? weight : 0;
     this.root = new TreeNode(0, value);
@@ -65,7 +64,7 @@ export class TreeNetwork {
     weights.forEach((w, id) => {
       this.nodeMap[id] = new TreeNode(id, w);
     });
-
+  
     // Set for children nodes tracking
     const isChild = new Set<number>();
 
@@ -73,13 +72,13 @@ export class TreeNetwork {
     for(const [parentNodeId, childNodeId] of edges) {
       const parentNode = this.nodeMap[parentNodeId];
       const childNode = this.nodeMap[childNodeId];
-
+  
       if(parentNode && childNode) {
         parentNode.addNextNode(childNode);
         isChild.add(childNodeId);
       }
     }
-
+  
     // Look for root node
     for (const nodeId in this.nodeMap) {
       const idNum = Number(nodeId);
@@ -92,12 +91,63 @@ export class TreeNetwork {
     return this.root;
   };
   
-  public lookForPath(): TreeNode[] {
+  public findPathsOfLength(root: TreeNode | null, k:number): TreeNode[][] {
     // code goes here
-    let nodePath: TreeNode[] = [];
-    return nodePath;
+    const result: TreeNode[][] = [];
+    if(!root || k <= 0) return result;
+
+    function dfs(node: TreeNode, currentPath: TreeNode[]) {
+      // 1. Add current node to path
+      currentPath.push(node);
+
+      // 2. Stop condition
+      if(currentPath.length === k) {
+        result.push([...currentPath]);
+      } else if (currentPath.length < k) {
+        for(const child of node.nextNodes) {
+          dfs(child, currentPath);
+        }
+      }
+
+      // 4. Bactracking: remove current node before return to parent node
+      currentPath.pop();
+    }
+      
+    dfs(root, []);
+    return result;
   };
 
+  public findPathsOfLengthsKBFS(root: TreeNode | null, k: number): TreeNode[][] {
+    const result: TreeNode[][] = [];
+    if(!root || k <= 0) return result;
+
+    // Queue get node arrays (partial paths)
+    const queue: TreeNode[][] = [[root]];
+
+    while(queue.length > 0) {
+      const currentPath = queue.shift()!;
+      const lastNode = currentPath[currentPath.length -1];
+
+      while (queue.length > 0) {
+        const currentPath = queue.shift()!;
+        const lastNode = currentPath[currentPath.length-1];
+
+        if(currentPath.length == k) {
+          result.push(currentPath);
+          continue;
+        }
+
+        if(currentPath.length < k) {
+          for(const child of lastNode.children) {
+            queue.push([...currentPath, child]);
+          }
+        }
+      }
+    }
+
+    return result;
+  }
+  
   public deletePath(path: TreeNode[]): void  {
     // code goes here
   };
