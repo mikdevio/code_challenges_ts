@@ -145,12 +145,52 @@ export class TreeNetwork {
     return result;
   }
   
-  public deletePath(path: TreeNode[]): void  {
+  public deletePath(root: TreeNode, path: TreeNode[]): TreeNode[]  {
     
-    for (node in path){
-      
+    // Nothing happend because path is empty and root is not path root
+    if(path.length === 0 || root.id !== path[0]?.id) {
+      return [root];
     }
+
+    const treeChunks: TreeNode[] = [];
+    
+    // If path length is greater than 1
+    if(path.length > 1) {
+      treeChunks.push(root);
+    }
+
+    let currentNode: TreeNode | null = root;
+
+    for(let i=0; i<path.length; i++) {
+      const currentId = path[i]!.id;
+      const nextId = path[i+1]?.id;
+
+      if(!currentNode || currentNode.id !== currentId) {
+        break;
+      }
+
+      // Identify next node on the path and reminder nodes
+      let nextNode: TreeNode | null = null;
+      const childChunks: TreeNode[] = [];
+
+      for(const child of currentNode.nextNodes) {
+        if(nextId && child.id === nextId) {
+          nextNode = child;
+        } else {
+          childChunks.push(child);
+        }
+      }
+      if(i !== 0) {
+        treeChunks.push(...childChunks);
+      }
+    
+      currentNode = nextNode;
+    }
+
+    return treeChunks;
+
   };
+
 };
 
 export const optimizeMinimumChunk = (weights: number[], edges: number[][]): number => {
@@ -163,10 +203,17 @@ export const optimizeMinimumChunk = (weights: number[], edges: number[][]): numb
   console.log("Vertical searching...");
   const paths_1 = treeNetwork.findPathsOfLength(treeNetwork.nodeMap[1]!, 3);
   console.log(paths_1);
-
+  
   console.log("Horizontal searching...");
   const paths_2 = treeNetwork.findPathsOfLengthKBFS(treeNetwork.nodeMap[1]!, 3);
   console.log(paths_2);
+
+  console.log("Chunks removin path[0]");
+  if(paths_1.length > 0) {
+    const chunks_1 = treeNetwork.deletePath(treeNetwork.nodeMap[1]!, paths_1[0]);
+    console.log(chunks_1);
+  }
+
 
   return 0;
 };
