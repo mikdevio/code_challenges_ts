@@ -62,7 +62,7 @@ export class TreeNetwork {
     
     // Create all nodes
     weights.forEach((w, id) => {
-      this.nodeMap[id] = new TreeNode(id, w);
+      this.nodeMap[id+1] = new TreeNode(id+1, w);
     });
   
     // Set for children nodes tracking
@@ -70,20 +70,20 @@ export class TreeNetwork {
 
     // Connect all nodes with edges matriz
     for(const [parentNodeId, childNodeId] of edges) {
-      const parentNode = this.nodeMap[parentNodeId];
-      const childNode = this.nodeMap[childNodeId];
+      const parentNode = this.nodeMap[parentNodeId as number];
+      const childNode = this.nodeMap[childNodeId as number];
   
       if(parentNode && childNode) {
         parentNode.addNextNode(childNode);
-        isChild.add(childNodeId);
+        isChild.add(childNodeId as number);
       }
     }
   
-    // Look for root node
+    // Look for root nodenumbe
     for (const nodeId in this.nodeMap) {
       const idNum = Number(nodeId);
       if(!isChild.has(idNum)){
-        this.root = this.nodeMap[idNum];
+        this.root = this.nodeMap[idNum] as TreeNode;
         break;
       }
     }
@@ -99,6 +99,8 @@ export class TreeNetwork {
     function dfs(node: TreeNode, currentPath: TreeNode[]) {
       // 1. Add current node to path
       currentPath.push(node);
+
+      // console.log(currentPath);
 
       // 2. Stop condition
       if(currentPath.length === k) {
@@ -117,7 +119,7 @@ export class TreeNetwork {
     return result;
   };
 
-  public findPathsOfLengthsKBFS(root: TreeNode | null, k: number): TreeNode[][] {
+  public findPathsOfLengthKBFS(root: TreeNode | null, k: number): TreeNode[][] {
     const result: TreeNode[][] = [];
     if(!root || k <= 0) return result;
 
@@ -128,19 +130,14 @@ export class TreeNetwork {
       const currentPath = queue.shift()!;
       const lastNode = currentPath[currentPath.length -1];
 
-      while (queue.length > 0) {
-        const currentPath = queue.shift()!;
-        const lastNode = currentPath[currentPath.length-1];
-
-        if(currentPath.length == k) {
-          result.push(currentPath);
+      if(currentPath.length == k) {
+        result.push(currentPath);
           continue;
-        }
+      }
 
-        if(currentPath.length < k) {
-          for(const child of lastNode.children) {
-            queue.push([...currentPath, child]);
-          }
+      if(currentPath.length < k) {
+        for(const child of lastNode!.nextNodes) {
+          queue.push([...currentPath, child]);
         }
       }
     }
@@ -149,11 +146,66 @@ export class TreeNetwork {
   }
   
   public deletePath(path: TreeNode[]): void  {
-    // code goes here
+    
+    for (node in path){
+      
+    }
   };
 };
 
 export const optimizeMinimumChunk = (weights: number[], edges: number[][]): number => {
-  // code goes here
+  
+  const treeNetwork = new TreeNetwork(null);
+  treeNetwork.fromArray(weights, edges);
+
+  console.log(treeNetwork.nodeMap);
+  
+  console.log("Vertical searching...");
+  const paths_1 = treeNetwork.findPathsOfLength(treeNetwork.nodeMap[1]!, 3);
+  console.log(paths_1);
+
+  console.log("Horizontal searching...");
+  const paths_2 = treeNetwork.findPathsOfLengthKBFS(treeNetwork.nodeMap[1]!, 3);
+  console.log(paths_2);
+
   return 0;
 };
+
+console.log("FIRST EXAMPLE ------------------------");
+const weigths_1 = [1,2,3,4];
+const edges_1 = [
+  [1,2],
+  [2,3],
+  [3,4]
+]
+
+const res = optimizeMinimumChunk(weigths_1, edges_1);
+
+console.log(res);
+
+
+console.log("SECOND EXAMPLE ------------------------");
+const weigths_2 = [1,2,3,4,5,6];
+const edges_2 = [
+  [1,2],
+  [1,3],
+  [3,4],
+  [2,5],
+  [4,6]
+]
+
+const res_2 = optimizeMinimumChunk(weigths_2, edges_2);
+console.log(res_2);
+
+console.log("THIRD EXAMPLE ------------------------");
+const weigths_3 = [1,2,3,4,5,6];
+const edges_3 = [
+  [1,2],
+  [1,3],
+  [1,4],
+  [1,5],
+  [1,6]
+]
+
+const res_3 = optimizeMinimumChunk(weigths_3, edges_3);
+console.log(res_3);
